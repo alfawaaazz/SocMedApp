@@ -7,7 +7,9 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Text(
           "hello",
-          style: TextStyle(),
+          style: TextStyle(
+            color: Colors.blue,
+          ),
         ),
       ),
     );

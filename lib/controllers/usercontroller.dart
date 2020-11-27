@@ -8,6 +8,10 @@ class UserController extends GetxController {
 
   set user(UserModel value) => this._userModel.value = value;
 
+  String fetchFirstName() {
+    return user.firstName;
+  }
+
   void clear() {
     _userModel.value = UserModel();
   }

@@ -14,5 +14,19 @@ class WeatherController extends GetxController {
     print("Area name: ${w.areaName}");
     print("Weather: ${w.weatherMain}");
     print("Pressure: ${w.pressure}");
+
+    wf.update((val) {
+      val.areaName = w.areaName;
+      val.country = w.country;
+      val.pressure = w.pressure;
+      val.sunrise = w.sunrise;
+      val.sunset = w.sunset;
+      val.tempCels = w.temperature.celsius;
+      val.tempMax = w.tempMax.celsius;
+      val.tempMin = w.tempMin.celsius;
+      val.tempFeelsLike = w.tempFeelsLike.celsius;
+      val.weather = w.weatherMain;
+      val.weatherDesc = w.weatherDescription;
+    });
   }
 }

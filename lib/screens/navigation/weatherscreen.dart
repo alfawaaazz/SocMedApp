@@ -55,15 +55,6 @@ class WeatherScreen extends GetWidget<AuthController> {
                 ),
               ),
               Container(
-                child: RaisedButton(
-                  onPressed: () => weatherCont.getWeather(
-                    posCont.pos.value.lat,
-                    posCont.pos.value.lon,
-                  ),
-                  child: Text("Get Weather"),
-                ),
-              ),
-              Container(
                 child: Obx(() => Text(
                       "Latitude: ${posCont.pos.value.lat}",
                       style: TextStyle(
@@ -78,6 +69,95 @@ class WeatherScreen extends GetWidget<AuthController> {
                         color: Colors.white,
                       ),
                     )),
+              ),
+              Container(
+                child: RaisedButton(
+                  onPressed: () => weatherCont.getWeather(
+                    posCont.pos.value.lat,
+                    posCont.pos.value.lon,
+                  ),
+                  child: Text("Get Weather"),
+                ),
+              ),
+              Container(
+                child: Obx(
+                  () => Text(
+                    "Area Name: ${weatherCont.wf.value.areaName}, ${weatherCont.wf.value.country}",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Obx(
+                  () => Text(
+                    "Pressure: ${weatherCont.wf.value.pressure} hPa",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Obx(
+                  () => Text(
+                    "Sunrise: ${weatherCont.wf.value.sunrise.hour}:${weatherCont.wf.value.sunrise.minute}",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Obx(
+                  () => Text(
+                    "Sunset: ${weatherCont.wf.value.sunset.hour}:${weatherCont.wf.value.sunset.minute}",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Obx(
+                  () => Text(
+                    "Temperature: ${weatherCont.wf.value.tempCels.toInt()}\u00B0C",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Obx(
+                  () => Text(
+                    "TempFeelsLike: ${weatherCont.wf.value.tempFeelsLike.toInt()}\u00B0C",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Obx(
+                  () => Text(
+                    "Weather: ${weatherCont.wf.value.weather}",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Obx(
+                  () => Text(
+                    "Weather Desc: ${weatherCont.wf.value.weatherDesc}",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

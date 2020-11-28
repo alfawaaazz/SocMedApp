@@ -1,14 +1,17 @@
 import 'package:SocMedApp/controllers/newsfeedcontroller.dart';
 import 'package:SocMedApp/controllers/usercontroller.dart';
 import 'package:SocMedApp/screens/navigation/addstatusscreen.dart';
+import 'package:SocMedApp/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class NewsFeedScreen extends StatelessWidget {
   final NewsFeedController newsFeedCont =
       Get.put<NewsFeedController>(NewsFeedController());
   final UserController userController =
       Get.put<UserController>(UserController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +41,11 @@ class NewsFeedScreen extends StatelessWidget {
           shrinkWrap: true,
           itemCount: newsFeedCont.newsFeed.length,
           itemBuilder: (_, index) {
+            DateTime date = DateTime.fromMillisecondsSinceEpoch(
+                newsFeedCont.newsFeed[index].timestamp.millisecondsSinceEpoch);
+            String dayDate = DateFormat.MMMEd().format(date);
+            String dayTime = DateFormat.Hm().format(date);
+
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               decoration: BoxDecoration(
@@ -69,22 +77,53 @@ class NewsFeedScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "${newsFeedCont.newsFeed[index].firstName} ${newsFeedCont.newsFeed[index].lastName}",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.5,
-                                fontSize: 18,
+                        Container(
+                          width: 250,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                child: Text(
+                                  "${newsFeedCont.newsFeed[index].firstName} ${newsFeedCont.newsFeed[index].lastName}  ",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0.5,
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
-                            ),
-                            //Text("${newsFeedCont.newsFeed[index].lastName}"),
-                            //Text(
-                            //   "${newsFeedCont.newsFeed[index].timestamp.millisecondsSinceEpoch}"),
-                          ],
+                              //Text("${newsFeedCont.newsFeed[index].lastName}"),
+                              // Text(
+                              //   "${newsFeedCont.newsFeed[index].timestamp.millisecondsSinceEpoch}"),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  Database().deleteNewsFeedItem(
+                                      newsFeedCont.newsFeed[index].newsFeedId);
+                                },
+                                child: Container(
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                        //Text(dayDate),
+                        Container(
+                          padding: EdgeInsets.only(top: 3),
+                          child: Text(
+                            dayTime,
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 5),
                           width: 250,

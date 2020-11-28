@@ -44,6 +44,12 @@ class Database {
     } catch (e) {}
   }
 
+  Future<void> deleteNewsFeedItem(String newsFeedItemId) async {
+    try {
+      await _firestore.collection("newsFeedItems").doc(newsFeedItemId).delete();
+    } catch (e) {}
+  }
+
   Stream<List<NewsFeedModel>> newsFeedStream() {
     return _firestore
         .collection("newsFeedItems")

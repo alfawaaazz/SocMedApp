@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewsFeedModel {
+  String newsFeedId;
   String imgAsset;
   String firstName;
   String lastName;
@@ -11,6 +12,7 @@ class NewsFeedModel {
   Timestamp timestamp;
 
   NewsFeedModel({
+    this.newsFeedId,
     this.imgAsset,
     this.firstName,
     this.lastName,
@@ -22,6 +24,7 @@ class NewsFeedModel {
   });
 
   NewsFeedModel.fromDocumentSnapshot(DocumentSnapshot doc) {
+    newsFeedId = doc.id;
     //imgAsset = doc.get("imgAsset");
     firstName = doc.get("firstName");
     lastName = doc.get("lastName");

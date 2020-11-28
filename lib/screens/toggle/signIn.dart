@@ -73,7 +73,7 @@ class SignIn extends GetWidget<AuthController> {
                 child: GestureDetector(
                   onTap: () {
                     print("Sign In button pressed");
-                    controller.toggleLoading();
+                    //controller.toggleLoading();
                     controller.login(signInEmail.text, signInPass.text);
                   },
                   child: Container(

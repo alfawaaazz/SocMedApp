@@ -16,21 +16,22 @@ class PositionController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     print("Waiting for location");
-    position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    // position = await Geolocator.getCurrentPosition(
+    //     desiredAccuracy: LocationAccuracy.high);
 
-    print("position.latitude: ${position.latitude}");
-    print("position.longiotude: ${position.longitude}");
+    // print("position.latitude: ${position.latitude}");
+    // print("position.longiotude: ${position.longitude}");
 
-    pos.update((val) {
-      val.lat = position.latitude;
-      val.lon = position.longitude;
-    });
+    // pos.update((val) {
+    //   val.lat = position.latitude;
+    //   val.lon = position.longitude;
+    // });
 
-    print("Latitude: ${pos.value.lat}");
-    print("Longitude: ${pos.value.lon}");
+    // print("Latitude: ${pos.value.lat}");
+    // print("Longitude: ${pos.value.lon}");
 
-    print("Location Received");
+    // print("Location Received");
+    getPosition();
   }
 
   void getPosition() async {

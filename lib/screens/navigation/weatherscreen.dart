@@ -1,5 +1,6 @@
 import 'package:SocMedApp/controllers/authcontroller.dart';
 import 'package:SocMedApp/controllers/positioncontroller.dart';
+import 'package:SocMedApp/controllers/startupcontroller.dart';
 import 'package:SocMedApp/controllers/usercontroller.dart';
 import 'package:SocMedApp/controllers/weathercontroller.dart';
 import 'package:SocMedApp/services/database.dart';
@@ -11,10 +12,10 @@ import 'package:geolocator/geolocator.dart';
 class WeatherScreen extends GetWidget<AuthController> {
   final UserController userController =
       Get.put<UserController>(UserController());
-  final PositionController posCont =
-      Get.put<PositionController>(PositionController());
+
   final WeatherController weatherCont =
       Get.put<WeatherController>(WeatherController());
+  final AuthController authCont = Get.put<AuthController>(AuthController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,9 +36,9 @@ class WeatherScreen extends GetWidget<AuthController> {
                   },
                   builder: (UserController userCont) {
                     return Text(
-                      "Hello, ${userController.user.firstName}",
+                      // "Hello, ${userController.user.firstName}",
                       //"Hello, ${Get.find<UserController>().fetchFirstName()}",
-                      //"Hello, ${Get.find<UserController>().user.firstName}",
+                      "Hello, ${Get.find<UserController>().user.firstName}",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 50,
@@ -50,13 +51,13 @@ class WeatherScreen extends GetWidget<AuthController> {
               ),
               Container(
                 child: RaisedButton(
-                  onPressed: posCont.getPosition,
+                  onPressed: weatherCont.getPosition,
                   child: Text("Get Location"),
                 ),
               ),
               Container(
                 child: Obx(() => Text(
-                      "Latitude: ${posCont.pos.value.lat}",
+                      "Latitude: ${weatherCont.pos.value.lat}",
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -64,7 +65,7 @@ class WeatherScreen extends GetWidget<AuthController> {
               ),
               Container(
                 child: Obx(() => Text(
-                      "Longitude: ${posCont.pos.value.lon}",
+                      "Longitude: ${weatherCont.pos.value.lon}",
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -73,8 +74,8 @@ class WeatherScreen extends GetWidget<AuthController> {
               Container(
                 child: RaisedButton(
                   onPressed: () => weatherCont.getWeather(
-                    posCont.pos.value.lat,
-                    posCont.pos.value.lon,
+                    weatherCont.pos.value.lat,
+                    weatherCont.pos.value.lon,
                   ),
                   child: Text("Get Weather"),
                 ),
@@ -157,6 +158,18 @@ class WeatherScreen extends GetWidget<AuthController> {
                       color: Colors.white,
                     ),
                   ),
+                ),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  Get.find<StartUpController>().toggleLoadingValue();
+                },
+                child: Text("Toggle Loading Value"),
+              ),
+              Container(
+                child: Obx(
+                  () => Text(
+                      "LoadingValue: ${Get.find<StartUpController>().loadingValue.value}"),
                 ),
               ),
             ],

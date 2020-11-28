@@ -1,5 +1,6 @@
 import 'package:SocMedApp/controllers/authcontroller.dart';
 import 'package:SocMedApp/controllers/bottomnavigationcontroller.dart';
+import 'package:SocMedApp/controllers/startupcontroller.dart';
 import 'package:SocMedApp/controllers/usercontroller.dart';
 import 'package:SocMedApp/screens/loadingscreen.dart';
 import 'package:SocMedApp/screens/navigation/newsfeedscreen.dart';
@@ -20,7 +21,7 @@ class HomeScreen extends GetWidget<AuthController> {
   ];
   @override
   Widget build(BuildContext context) {
-    return controller.loading
+    return Obx(() => Get.find<StartUpController>().loadingbool
         ? LoadingScreen()
         : SafeArea(
             child: Scaffold(
@@ -45,6 +46,6 @@ class HomeScreen extends GetWidget<AuthController> {
                   )),
               body: Obx(() => pages[navCont.selectedIndex]),
             ),
-          );
+          ));
   }
 }

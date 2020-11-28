@@ -1,3 +1,4 @@
+import 'package:SocMedApp/models/newsfeed.dart';
 import 'package:SocMedApp/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -27,5 +28,33 @@ class Database {
       print(e);
       rethrow;
     }
+  }
+
+  Future<void> addNewsFeedItem(
+      String uid, String firstName, String lastName, String content) async {
+    try {
+      await _firestore.collection("newsFeedItems").add({
+        "dateCreated": Timestamp.now(),
+        "content": content,
+        "firstName": firstName,
+        "lastName": lastName,
+        "comments": 0,
+        "likes": 0,
+      });
+    } catch (e) {}
+  }
+
+  Stream<List<NewsFeedModel>> newsFeedStream() {
+    return _firestore
+        .collection("newsFeedItems")
+        .orderBy("dateCreated", descending: true)
+        .snapshots()
+        .map((QuerySnapshot query) {
+      List<NewsFeedModel> retVal = List();
+      query.docs.forEach((element) {
+        retVal.add(NewsFeedModel.fromDocumentSnapshot(element));
+      });
+      return retVal;
+    });
   }
 }

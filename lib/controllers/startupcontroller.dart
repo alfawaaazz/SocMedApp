@@ -19,6 +19,15 @@ class StartUpController extends GetxController {
     await weatherCont.getPosition();
     await weatherCont.getWeather(
         weatherCont.pos.value.lat, weatherCont.pos.value.lon);
+    if (Get.find<AuthController>().user != null) {
+      Get.find<UserController>().user =
+          await Database().getUser(Get.find<AuthController>().user.uid);
+    } else {}
+
+    toggleLoadingValue();
+  }
+
+  void getUser() async {
     Get.find<UserController>().user =
         await Database().getUser(Get.find<AuthController>().user.uid);
     toggleLoadingValue();

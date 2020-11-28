@@ -1,5 +1,6 @@
 import 'package:SocMedApp/controllers/authcontroller.dart';
 import 'package:SocMedApp/controllers/bottomnavigationcontroller.dart';
+import 'package:SocMedApp/controllers/newsfeedcontroller.dart';
 import 'package:SocMedApp/controllers/positioncontroller.dart';
 import 'package:SocMedApp/controllers/startupcontroller.dart';
 import 'package:SocMedApp/controllers/usercontroller.dart';
@@ -13,10 +14,11 @@ class AuthBinding extends Bindings {
     // TODO: implement dependencies
     Get.lazyPut(() => AuthController());
 
-    Get.lazyPut(() => UserController());
+    Get.put<UserController>(UserController(), permanent: true);
     //Get.lazyPut(() => PositionController());
 
     Get.lazyPut(() => BottomNavigationController());
     Get.lazyPut(() => StartUpController());
+    Get.lazyPut(() => NewsFeedController());
   }
 }

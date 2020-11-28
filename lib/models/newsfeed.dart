@@ -8,6 +8,7 @@ class NewsFeedModel {
   int comments;
   int likes;
   bool isLiked;
+  Timestamp timestamp;
 
   NewsFeedModel({
     this.imgAsset,
@@ -17,15 +18,17 @@ class NewsFeedModel {
     this.comments,
     this.isLiked,
     this.likes,
+    this.timestamp,
   });
 
   NewsFeedModel.fromDocumentSnapshot(DocumentSnapshot doc) {
-    imgAsset = doc.get("imgAsset");
+    //imgAsset = doc.get("imgAsset");
     firstName = doc.get("firstName");
     lastName = doc.get("lastName");
     content = doc.get("content");
     comments = doc.get("comments");
     likes = doc.get("likes");
-    isLiked = doc.get("isLiked");
+    timestamp = doc.get("dateCreated");
+    // isLiked = doc.get("isLiked");
   }
 }

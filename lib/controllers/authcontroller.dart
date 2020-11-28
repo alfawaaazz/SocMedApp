@@ -65,6 +65,7 @@ class AuthController extends GetxController {
           await Database().getUser(_authResult.user.uid);
       print("authcontroller.dart | login : User logged in");
       //toggleLoading();
+      Get.find<StartUpController>().toggleLoadingValue();
     } catch (e) {
       Get.snackbar(
         "Email or Password is incorrect",

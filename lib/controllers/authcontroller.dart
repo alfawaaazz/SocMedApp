@@ -1,7 +1,9 @@
 import 'package:SocMedApp/controllers/startupcontroller.dart';
 import 'package:SocMedApp/controllers/usercontroller.dart';
 import 'package:SocMedApp/models/user.dart';
+import 'package:SocMedApp/screens/authscreen.dart';
 import 'package:SocMedApp/services/database.dart';
+import 'package:SocMedApp/utils/root.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -79,6 +81,7 @@ class AuthController extends GetxController {
     try {
       await _auth.signOut();
       Get.find<UserController>().clear();
+      Get.offAll(Root());
       print("authcontroller.dart | signOut : User signed out.");
     } catch (e) {}
   }

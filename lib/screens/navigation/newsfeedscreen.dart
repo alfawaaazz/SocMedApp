@@ -66,11 +66,11 @@ class NewsFeedScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 25,
-                    // child: ClipOval(
-                    //   child: Image.asset(
-                    //     "assets/${Get.find<UserController>().user.firstName}.jpg",
-                    //   ),
-                    // ),
+                    child: ClipOval(
+                      child: Image.asset(
+                        "assets/${newsFeedCont.newsFeed[index].firstName}.jpg",
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),

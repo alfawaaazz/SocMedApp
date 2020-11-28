@@ -17,10 +17,8 @@ class ProfileScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 40),
             child: CircleAvatar(
               radius: 40,
-              child: ClipOval(
-                child: Image.asset(
-                  "assets/${Get.find<UserController>().user.firstName}.jpg",
-                ),
+              backgroundImage: AssetImage(
+                "assets/${Get.find<UserController>().user.firstName}.jpg",
               ),
             ),
           ),

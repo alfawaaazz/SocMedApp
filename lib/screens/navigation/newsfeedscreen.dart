@@ -66,10 +66,8 @@ class NewsFeedScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 25,
-                    child: ClipOval(
-                      child: Image.asset(
-                        "assets/${newsFeedCont.newsFeed[index].firstName}.jpg",
-                      ),
+                    backgroundImage: AssetImage(
+                      "assets/${newsFeedCont.newsFeed[index].firstName}.jpg",
                     ),
                   ),
                   Padding(

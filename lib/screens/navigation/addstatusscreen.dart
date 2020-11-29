@@ -46,7 +46,25 @@ class AddStatusScreen extends StatelessWidget {
       body: Column(
         children: [
           Container(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () => Get.back(),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.blue[300],
+                ),
+                child: Icon(Icons.close, color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(20),
             child: TextFormField(
+              maxLines: 8,
+              maxLength: 200,
               controller: statusCont,
               decoration: InputDecoration(
                 hintText: "What's on your mind? ",

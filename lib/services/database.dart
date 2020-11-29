@@ -1,6 +1,7 @@
 import 'package:SocMedApp/models/newsfeed.dart';
 import 'package:SocMedApp/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 
 class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -47,6 +48,7 @@ class Database {
   Future<void> deleteNewsFeedItem(String newsFeedItemId) async {
     try {
       await _firestore.collection("newsFeedItems").doc(newsFeedItemId).delete();
+      Get.snackbar("Item Deleted", "", snackPosition: SnackPosition.BOTTOM);
     } catch (e) {}
   }
 

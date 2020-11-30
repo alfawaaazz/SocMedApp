@@ -3,6 +3,7 @@ import 'package:SocMedApp/controllers/positioncontroller.dart';
 import 'package:SocMedApp/controllers/startupcontroller.dart';
 import 'package:SocMedApp/controllers/usercontroller.dart';
 import 'package:SocMedApp/controllers/weathercontroller.dart';
+import 'package:SocMedApp/screens/citiesscreen.dart';
 import 'package:SocMedApp/services/database.dart';
 import 'package:SocMedApp/widgets/weatheritems.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class WeatherScreen extends GetWidget<AuthController> {
         backgroundColor: Colors.blue,
         body: Obx(
           () => Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
             height: double.infinity,
             width: double.infinity,
             child: Column(
@@ -41,6 +42,7 @@ class WeatherScreen extends GetWidget<AuthController> {
                     // "Hello, ${userController.user.firstName}",
                     //"Hello, ${Get.find<UserController>().fetchFirstName()}",
                     "Hello, ${Get.find<UserController>().user.firstName}",
+
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 60,
@@ -49,15 +51,44 @@ class WeatherScreen extends GetWidget<AuthController> {
                     ),
                   ),
                 ),
-                Container(
-                  child: Text(
-                    "${weatherCont.wf.value.areaName}, ${weatherCont.wf.value.country}",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Wrap(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "${weatherCont.wf.value.areaName}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.more_vert,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () => Get.to(
+                                  CitiesScreen(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                    IconButton(
+                      icon: Icon(Icons.location_on, color: Colors.white),
+                      onPressed: () => weatherCont.getWeather(
+                        weatherCont.pos.value.lat,
+                        weatherCont.pos.value.lon,
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
                   child: Text(

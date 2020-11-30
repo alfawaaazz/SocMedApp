@@ -50,6 +50,7 @@ class NewsFeedScreen extends StatelessWidget {
             return StatusTile(
               index: index,
               dayTime: dayTime,
+              dayDate: dayDate,
             );
           },
         ),

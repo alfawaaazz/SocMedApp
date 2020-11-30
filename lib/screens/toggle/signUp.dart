@@ -5,13 +5,19 @@ import 'package:get/get.dart';
 
 class SignUp extends GetWidget<AuthController> {
   final Function toggleScreen;
+  final TextEditingController signUpEmail;
+  final TextEditingController signUpPass;
+  final TextEditingController firstName;
+  final TextEditingController lastName;
 
-  SignUp(this.toggleScreen);
+  SignUp(
+    this.toggleScreen,
+    this.signUpEmail,
+    this.signUpPass,
+    this.firstName,
+    this.lastName,
+  );
 
-  final TextEditingController signUpEmail = TextEditingController();
-  final TextEditingController signUpPass = TextEditingController();
-  final TextEditingController firstName = TextEditingController();
-  final TextEditingController lastName = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -72,6 +78,7 @@ class SignUp extends GetWidget<AuthController> {
                   color: Colors.white,
                 ),
                 decoration: defaultDecoration("Password"),
+                obscureText: true,
               ),
             ),
             /* Container(

@@ -38,6 +38,15 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           Container(
+            child: Text(
+              "${userCont.user.email}",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
+            ),
+          ),
+          Container(
             padding: EdgeInsets.symmetric(vertical: 30),
             child: RaisedButton(
               onPressed: Get.find<AuthController>().signOut,

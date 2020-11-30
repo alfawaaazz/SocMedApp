@@ -9,6 +9,14 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final TextEditingController signInEmail = new TextEditingController();
+  final TextEditingController signInPass = new TextEditingController();
+
+  final TextEditingController signUpEmail = TextEditingController();
+  final TextEditingController signUpPass = TextEditingController();
+  final TextEditingController firstName = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
+
   bool toggle = false;
   @override
   Widget build(BuildContext context) {
@@ -49,7 +57,19 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                 ),
                 Container(
-                  child: toggle ? SignUp(toggleScreen) : SignIn(toggleScreen),
+                  child: toggle
+                      ? SignUp(
+                          toggleScreen,
+                          signUpEmail,
+                          signUpPass,
+                          firstName,
+                          lastName,
+                        )
+                      : SignIn(
+                          toggleScreen,
+                          signInEmail,
+                          signInPass,
+                        ),
                 ),
               ],
             ),

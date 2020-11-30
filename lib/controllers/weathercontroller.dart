@@ -38,6 +38,30 @@ class WeatherController extends GetxController {
     });
   }
 
+  void getWeatherByCityName(String cityName) async {
+    try {
+      print("Fetching weather by cityname");
+      weather = new WeatherFactory(apiKey);
+      Weather w = await weather.currentWeatherByCityName(cityName);
+      print("CityName: ${w.areaName}");
+      print("Weather: ${w.weatherMain}");
+
+      wf.update((val) {
+        val.areaName = w.areaName;
+        val.country = w.country;
+        val.pressure = w.pressure;
+        val.sunrise = w.sunrise;
+        val.sunset = w.sunset;
+        val.tempCels = w.temperature.celsius;
+        val.tempMax = w.tempMax.celsius;
+        val.tempMin = w.tempMin.celsius;
+        val.tempFeelsLike = w.tempFeelsLike.celsius;
+        val.weather = w.weatherMain;
+        val.weatherDesc = w.weatherDescription;
+      });
+    } catch (e) {}
+  }
+
   void getPosition() async {
     position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);

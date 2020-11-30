@@ -6,9 +6,11 @@ import 'package:SocMedApp/services/database.dart';
 import 'package:SocMedApp/utils/root.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;
+  GoogleSignIn googleSignIn = GoogleSignIn();
   Rx<User> _firebaseUser = Rx<User>();
 
   User get user => _firebaseUser.value;
@@ -44,6 +46,7 @@ class AuthController extends GetxController {
       }
 
       print("authController | createUser: User created successfully.");
+      Get.find<StartUpController>().toggleLoadingValue();
     } catch (e) {
       Get.snackbar(
         "Error creating an account",
@@ -75,6 +78,43 @@ class AuthController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     }
+  }
+
+  void loginWithGoogle() {
+    try {} catch (e) {}
+  }
+
+  Future<String> signInWithGoogle() async {
+    print("Signing in with google");
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User user = authResult.user;
+
+    if (user != null) {
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final User currentUser = _auth.currentUser;
+      assert(user.uid == currentUser.uid);
+      print("signin with google succeeded: $user");
+      return "$user";
+    }
+    return "null";
+  }
+
+  Future<void> signOutGoogle() async {
+    await googleSignIn.signOut();
+
+    print("User Signed Out");
   }
 
   void signOut() async {

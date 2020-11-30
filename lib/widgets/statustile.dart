@@ -1,4 +1,5 @@
 import 'package:SocMedApp/controllers/newsfeedcontroller.dart';
+import 'package:SocMedApp/controllers/newsfeedlikedcontroller.dart';
 import 'package:SocMedApp/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,9 +7,12 @@ import 'package:get/get.dart';
 class StatusTile extends StatelessWidget {
   final int index;
   final String dayTime;
-  StatusTile({this.index, this.dayTime});
+  final String dayDate;
+  StatusTile({this.index, this.dayTime, this.dayDate});
   final NewsFeedController newsFeedCont =
       Get.put<NewsFeedController>(NewsFeedController());
+  final NewsFeedLikedController newsFeedLikedCont =
+      Get.put<NewsFeedLikedController>(NewsFeedLikedController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,7 +88,7 @@ class StatusTile extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(top: 3),
                   child: Text(
-                    dayTime,
+                    "$dayTime | $dayDate",
                     style: TextStyle(
                       color: Colors.white70,
                       fontSize: 11,
@@ -111,11 +115,51 @@ class StatusTile extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 5),
-                  child: Text(
-                    "Likes ${newsFeedCont.newsFeed[index].likes}   Comments ${newsFeedCont.newsFeed[index].comments}",
-                    style: TextStyle(
-                      color: Colors.white70,
-                    ),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          // Database().likePress(
+                          //   newsFeedCont.newsFeed[index].newsFeedId,
+                          // );
+                        },
+                        child: Icon(
+                          Icons.favorite_border,
+                          color: Colors.white70,
+                          size: 20,
+                        ),
+                        // : Icon(
+                        //     Icons.favorite,
+                        //     color: Colors.red,
+                        //     size: 20,
+                        //   ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 5, right: 20),
+                        child: Text(
+                          "${newsFeedCont.newsFeed[index].likes}",
+                          style: TextStyle(
+                            color: Colors.white70,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Icon(
+                          Icons.comment_rounded,
+                          color: Colors.white70,
+                          size: 20,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 5),
+                        child: Text(
+                          "${newsFeedCont.newsFeed[index].comments}",
+                          style: TextStyle(
+                            color: Colors.white70,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

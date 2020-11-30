@@ -1,7 +1,11 @@
+import 'package:SocMedApp/controllers/usercontroller.dart';
 import 'package:SocMedApp/models/newsfeed.dart';
+import 'package:SocMedApp/models/newsfeedliked.dart';
 import 'package:SocMedApp/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Database {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -31,6 +35,8 @@ class Database {
     }
   }
 
+ 
+
   Future<void> addNewsFeedItem(
       String uid, String firstName, String lastName, String content) async {
     try {
@@ -52,6 +58,32 @@ class Database {
     } catch (e) {}
   }
 
+  Future<void> likePress(
+    String newsFeedItemId,
+  ) async {
+    String uid = Get.find<UserController>().user.id;
+    String firstName = Get.find<UserController>().user.firstName;
+    String lastName = Get.find<UserController>().user.lastName;
+    try {
+      await _firestore
+          .collection("newsFeedItems")
+          .doc(newsFeedItemId)
+          .collection("likers")
+          .add({
+        "firstName": firstName,
+        "lastName": lastName,
+      });
+
+      await _firestore
+          .collection("users")
+          .doc(uid)
+          .collection("likedItems")
+          .add({
+        "newsFeedItemId": newsFeedItemId,
+      });
+    } catch (e) {}
+  }
+
   Stream<List<NewsFeedModel>> newsFeedStream() {
     return _firestore
         .collection("newsFeedItems")
@@ -63,6 +95,21 @@ class Database {
         retVal.add(NewsFeedModel.fromDocumentSnapshot(element));
       });
       return retVal;
+    });
+  }
+
+  Stream<List<NewsFeedLiked>> newsFeedItemIdStream() {
+    return _firestore
+        .collection("users")
+        .doc(Get.find<UserController>().user.id)
+        .collection("likedItems")
+        .snapshots()
+        .map((QuerySnapshot query) {
+      List<NewsFeedLiked> newsFeedStream = List();
+      query.docs.forEach((element) {
+        newsFeedStream.add(NewsFeedLiked.fromDocumentSnapshot(element));
+      });
+      return newsFeedStream;
     });
   }
 }

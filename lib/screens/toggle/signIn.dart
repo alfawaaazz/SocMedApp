@@ -5,11 +5,10 @@ import 'package:get/get.dart';
 
 class SignIn extends GetWidget<AuthController> {
   final Function toggleScreen;
+  final TextEditingController signInEmail;
+  final TextEditingController signInPass;
 
-  SignIn(this.toggleScreen);
-
-  final TextEditingController signInEmail = TextEditingController();
-  final TextEditingController signInPass = TextEditingController();
+  SignIn(this.toggleScreen, this.signInEmail, this.signInPass);
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +51,7 @@ class SignIn extends GetWidget<AuthController> {
                     color: Colors.white,
                   ),
                   decoration: defaultDecoration("Password"),
+                  obscureText: true,
                 ),
               ),
               Container(
@@ -65,32 +65,89 @@ class SignIn extends GetWidget<AuthController> {
                   ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                width: double.infinity,
-                height: 50,
-                // color: Colors.black,
-                child: GestureDetector(
-                  onTap: () {
-                    print("Sign In button pressed");
-                    //controller.toggleLoading();
-                    controller.login(signInEmail.text, signInPass.text);
-                  },
-                  child: Container(
-                    // padding: EdgeInsets.symmetric(horizontal: 20),
-                    width: double.infinity,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  width: double.infinity,
+                  height: 50,
+                  // color: Colors.black,
+                  child: GestureDetector(
+                    onTap: () {
+                      print("Sign In button pressed");
+                      //controller.toggleLoading();
+                      controller.login(signInEmail.text, signInPass.text);
+                    },
+                    child: Container(
+                      // padding: EdgeInsets.symmetric(horizontal: 20),
+                      width: double.infinity,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Sign In",
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 20,
+                          ),
                         ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  width: double.infinity,
+                  height: 50,
+                  // color: Colors.black,
+                  child: GestureDetector(
+                    onTap: () {
+                      print("Sign In with Google button pressed");
+                      //controller.toggleLoading();
+                      //  controller.login(signInEmail.text, signInPass.text);
+                    },
+                    child: Container(
+                      // padding: EdgeInsets.symmetric(horizontal: 20),
+                      width: double.infinity,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: CircleAvatar(
+                              radius: 15,
+                              child: ClipOval(
+                                child: Image.asset(
+                                  "assets/google.jpg",
+                                  fit: BoxFit.cover,
+                                  width: 30,
+                                  height: 30,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: Text(
+                              "Sign In with Google",
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
